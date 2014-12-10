@@ -1,0 +1,33 @@
+<h1>Listing lineups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Store</th>
+      <th>Number</th>
+      <th>Person cnt</th>
+      <th>Check in</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lineups.each do |lineup| %>
+      <tr>
+        <td><%= lineup.user_id %></td>
+        <td><%= lineup.store_id %></td>
+        <td><%= lineup.number %></td>
+        <td><%= lineup.person_cnt %></td>
+        <td><%= lineup.check_in %></td>
+        <td><%= link_to 'Show', lineup %></td>
+        <td><%= link_to 'Edit', edit_lineup_path(lineup) %></td>
+        <td><%= link_to 'Destroy', lineup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lineup', new_lineup_path %>

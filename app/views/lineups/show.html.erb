@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lineup.user_id %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @lineup.store_id %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @lineup.number %>
+</p>
+
+<p>
+  <strong>Person cnt:</strong>
+  <%= @lineup.person_cnt %>
+</p>
+
+<p>
+  <strong>Check in:</strong>
+  <%= @lineup.check_in %>
+</p>
+
+<%= link_to 'Edit', edit_lineup_path(@lineup) %> |
+<%= link_to 'Back', lineups_path %>
