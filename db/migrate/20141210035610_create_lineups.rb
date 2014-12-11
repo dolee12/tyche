@@ -1,11 +1,11 @@
 class CreateLineups < ActiveRecord::Migration
   def change
     create_table :lineups do |t|
-      t.integer :user_id
-      t.integer :store_id
-      t.integer :number
-      t.integer :person_cnt
-      t.datetime :check_in
+      t.belongs_to :user, :null => false
+      t.belongs_to :store, :null => false
+      t.integer :cnt, :null => false
+      t.integer :person_cnt, :null => false, :default => 1
+      t.datetime :check_in, :null => true
 
       t.timestamps
     end

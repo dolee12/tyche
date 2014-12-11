@@ -1,11 +1,55 @@
+
 class LineupsController < ApplicationController
   before_action :set_lineup, only: [:show, :edit, :update, :destroy]
-
+    
   # GET /lineups
   # GET /lineups.json
   def index
-    @lineups = Lineup.all
+    user_id = 50
+    
+    user = find_user_by_id(user_id)
+    @ticket_list = get_current_user_ticket_list(user)
   end
+  
+  def find_user_by_id(user_id)
+    User.find(user_id)
+  end
+  
+  def get_current_user_ticket_list (user)
+    
+    user_lineup_list = get_current_user_lineup_list (user)
+    
+    ticket_list = []
+    user_lineup_list.each do |user_lineup|
+      ticket = LineupsHelper::Ticket.new
+      ticket.store_id = user_lineup.store.id
+      ticket.store_name = user_lineup.store.name
+      ticket.reg_time = user_lineup.created_at
+      ticket.wait_number = user_lineup.cnt
+      ticket.wait_ahead_count = get_current_user_wait_ahead_count(user_lineup)
+      ticket_list << ticket;
+    end
+    
+    return ticket_list
+  end
+  
+  def get_current_user_lineup_list (user)
+    user.lineups
+  end
+  
+  def get_current_user_wait_ahead_count (user_lineup)
+    all_waiting_users = get_store_all_waiting_users (user_lineup.store)
+    calc_order_to_current_user user_lineup, all_waiting_users 
+  end
+  
+  def get_store_all_waiting_users (store)
+    store.lineups
+  end
+  
+  def calc_order_to_current_user(user_lineup, all_waiting_users)
+    all_waiting_users.where("id <= ?", user_lineup.id).count
+  end
+  
 
   # GET /lineups/1
   # GET /lineups/1.json
