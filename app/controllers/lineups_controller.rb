@@ -9,6 +9,8 @@ class LineupsController < ApplicationController
     
     user = find_user_by_id(user_id)
     @ticket_list = get_current_user_ticket_list(user)
+    
+    render json: @ticket_list
   end
   
   def find_user_by_id(user_id)

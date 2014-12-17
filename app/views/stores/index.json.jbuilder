@@ -1,4 +1,3 @@
 json.array!(@stores) do |store|
-  json.extract! store, :id, :reg_no, :name, :addr, :location, :tel, :open_time, :close_time
-  json.url store_url(store, format: :json)
+  json.extract! store, :id, :name, :category, :tel, :addr, :location, :cnt, :wait
 end

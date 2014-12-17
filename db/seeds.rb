@@ -14,10 +14,23 @@
   p.save
 end
 
-(1..10).each do |i|
+store_list = [["김밥천국","음식점"], 
+        ["놀부부대","음식점"], 
+        ["하동관", "음식점"], 
+        ["섬낙지","음식점"],
+        ["오양족발", "음식점"], 
+        ["명동칼국수", "음식점"],
+        ["이진영피부과", "병원"],
+        ["김사랑치과", "병원"],
+        ["연세이비인후과", "병원"],
+        ["경희한의원", "병원"]
+      ]
+
+store_list.each do |i|
   s = Store.new
   s.reg_no = "111-22-33445"
-  s.name = "놀부 부대찌게" + i.to_s
+  s.name = i[0]
+  s.category = i[1]
   s.addr = "서울시 강남구 대치2동 포스코 지하 1층"
   s.location ="1111111"
   s.tel = "02-3412-7642"
@@ -33,7 +46,7 @@ hash = {}
 users = User.all
 
 users.each do |eachUser|
-  (1..2).each do |i|
+  (1..3).each do |i|
     store_id = r.rand(1..10)
     randomlySelectedStore = Store.find(store_id)
     if hash[randomlySelectedStore].nil?

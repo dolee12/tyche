@@ -4,7 +4,9 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
-    @stores = Store.all
+    keyword = params[:name]
+    limit = params[:limit]
+    @stores = Store.where("name like '%#{keyword}%'").limit(limit)
   end
 
   # GET /stores/1

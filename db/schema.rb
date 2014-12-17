@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210035610) do
+ActiveRecord::Schema.define(version: 20141217040125) do
 
   create_table "lineups", force: true do |t|
     t.integer  "user_id",                null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20141210035610) do
     t.integer  "cnt",                    default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category"
   end
 
   create_table "users", force: true do |t|
