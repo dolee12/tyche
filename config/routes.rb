@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :lineups
+  resources :tickets
 
   resources :stores
 

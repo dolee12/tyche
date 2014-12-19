@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217040125) do
-
-  create_table "lineups", force: true do |t|
-    t.integer  "user_id",                null: false
-    t.integer  "store_id",               null: false
-    t.integer  "cnt",                    null: false
-    t.integer  "person_cnt", default: 1, null: false
-    t.datetime "check_in"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20141219065830) do
 
   create_table "stores", force: true do |t|
     t.string   "reg_no",     limit: 12,                  null: false
@@ -36,6 +26,16 @@ ActiveRecord::Schema.define(version: 20141217040125) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "category"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.integer  "user_id",                null: false
+    t.integer  "store_id",               null: false
+    t.integer  "cnt",                    null: false
+    t.integer  "person_cnt", default: 1, null: false
+    t.datetime "check_in"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
