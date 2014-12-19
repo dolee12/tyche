@@ -8,9 +8,9 @@ class TicketsController < ApplicationController
     user_id = 1
     
     user = find_user_by_id(user_id)
-    @ticket_list = get_current_user_ticket_list(user)
+    @tickets = get_current_user_ticket_list(user)
     
-    render json: @ticket_list
+    #render json: @tickets
   end
   
   def find_user_by_id(user_id)
@@ -19,7 +19,7 @@ class TicketsController < ApplicationController
   
   def get_current_user_ticket_list (user)
     
-    user_ticket_list = get_current_user_ticket_list (user)
+    user_ticket_list = user.tickets
     
     ticket_list = []
     user_ticket_list.each do |user_ticket|
@@ -35,9 +35,6 @@ class TicketsController < ApplicationController
     return ticket_list
   end
   
-  def get_current_user_ticket_list (user)
-    user.tickets
-  end
   
   def get_current_user_wait_ahead_count (user_ticket)
     all_waiting_users = get_store_all_waiting_users (user_ticket.store)
