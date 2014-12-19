@@ -9,8 +9,6 @@ class TicketsController < ApplicationController
     
     user = find_user_by_id(user_id)
     @tickets = get_current_user_ticket_list(user)
-    
-    #render json: @tickets
   end
   
   def find_user_by_id(user_id)
@@ -67,17 +65,42 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
+    user_id = params["user_id"]
+    store_id = params["store_id"]
+    
+    @ticket = Ticket.new
+    @ticket.user_id = user_id
+    @ticket.store_id = store_id
+    @ticket.cnt = get_new_ticket_number (store_id)
 
     respond_to do |format|
       if @ticket.save
+        @newTicket = TicketsHelper::Ticket.new
+        @newTicket.store_id = @ticket.store.id
+        @newTicket.store_name = @ticket.store.name
+        @newTicket.reg_time = @ticket.created_at
+        @newTicket.wait_number = @ticket.cnt
+        @newTicket.wait_ahead_count = get_current_user_wait_ahead_count(@ticket)
+        
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
+        format.json { render :show}
       else
         format.html { render :new }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def get_new_ticket_number (store_id)
+    new_ticket_number = 0
+    Store.transaction do
+      store = Store.lock.find(store_id)
+      new_ticket_number = store.cnt + 1
+      store.cnt = new_ticket_number
+      store.save!
+    end
+    
+    return new_ticket_number
   end
 
   # PATCH/PUT /tickets/1
