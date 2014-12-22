@@ -1,14 +1,14 @@
 
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
+  
     
   # GET /tickets
   # GET /tickets.json
   def index
-    user_id = 1
-    
-    user = find_user_by_id(user_id)
-    @tickets = get_current_user_ticket_list(user)
+    @tickets = get_current_user_ticket_list(@user)
   end
   
   def find_user_by_id(user_id)
@@ -65,7 +65,8 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    user_id = params["user_id"]
+    # user_id = params["user_id"]
+    user_id = @user.id
     store_id = params["store_id"]
     
     @ticket = Ticket.new
@@ -132,7 +133,11 @@ class TicketsController < ApplicationController
     def set_ticket
       @ticket = Ticket.find(params[:id])
     end
-
+    
+    def set_user
+      @user = User.find(1)
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
       params.require(:ticket).permit(:user_id, :store_id, :number, :person_cnt, :check_in)
