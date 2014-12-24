@@ -11,18 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219065830) do
+ActiveRecord::Schema.define(version: 20141224003457) do
 
   create_table "stores", force: true do |t|
-    t.string   "reg_no",     limit: 12,                  null: false
-    t.string   "name",       limit: 100,                 null: false
+    t.string   "reg_no",     limit: 12,              null: false
+    t.string   "name",       limit: 100,             null: false
     t.string   "addr"
     t.string   "location"
     t.string   "tel",        limit: 20
     t.time     "open_time"
     t.time     "close_time"
-    t.boolean  "wait",                   default: false, null: false
-    t.integer  "cnt",                    default: 0,     null: false
+    t.integer  "ticket_cnt",             default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "category"
